@@ -3,16 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LETTER" xmlns:viewmodel="clr-namespace:LETTER.ViewModel"
+        xmlns:local="clr-namespace:LETTER" xmlns:viewmodel="clr-namespace:LETTER.ViewModel" 
+        xmlns:dialogfilecontroller="clr-namespace:LETTER_BLL.Controllers;assembly=LETTER_BLL" d:DataContext="{d:DesignData Type=dialogfilecontroller:DialogFileController}"
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="300"
         WindowStyle="None" ResizeMode="NoResize"
         Background="#181735">
-    <Window.DataContext>
-        <viewmodel:MainViewModel/>
-    </Window.DataContext>
-    
-    
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
@@ -128,11 +126,15 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
 
+                <Button Height="25" Width="25" Command="{Binding OpenCommand}"></Button>
+                
                 <Button Content="Open File"
                     Foreground="White"
                     FontSize="14"
                     FontWeight="Medium"
-                        Margin="5,0,10,0" Cursor="Hand">
+                        Margin="5,0,10,0" Cursor="Hand"
+                        Command="{Binding OpenCommand}"
+                        >
 
                     <Button.Style>
                         <Style TargetType="Button">

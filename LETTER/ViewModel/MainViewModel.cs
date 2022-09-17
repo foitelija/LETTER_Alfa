@@ -1,35 +1,68 @@
 ﻿using LETTER.Core;
+using LETTER_BLL.Controllers;
+using LETTER_BLL.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace LETTER.ViewModel
 {
-    internal class MainViewModel : ObservableObject
+    public class MainViewModel : ObservableObject
     {
 
         /*  Commands    */
-        public RelayCommand MoveWindowCommand { get; set; }
-        public RelayCommand ShutdownWindowCommand { get; set; }
+        IDialogFile dialogService;
 
-        public object _currentView;
-        public object CurrentView
+
+        public MainViewModel(IDialogFile dialogService)
         {
-            get { return _currentView; }
-            set
+            this.dialogService = dialogService;
+        }
+
+        private RelayCommand openCommand;
+        public RelayCommand OpenCommand
+        {
+            get
             {
-                _currentView = value;
-                OnPropertyChanged();
+                return openCommand ??
+                  (openCommand = new RelayCommand(obj =>
+                  {
+                      try
+                      {
+                          if (dialogService.OpenFileDialog() == true)
+                          {
+                              PathController.SetPath(dialogService.FilePath);
+                          }
+                      }
+                      catch (Exception ex)
+                      {
+                          MessageBox.Show(ex.Message);
+                      }
+                  }));
             }
         }
 
-        public MainViewModel()
+
+
+        public RelayCommand MoveWindowCommand
         {
-            MoveWindowCommand = new RelayCommand(o => { Application.Current.MainWindow.DragMove(); });
-            ShutdownWindowCommand = new RelayCommand(o => { Application.Current.Shutdown(); });
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    Application.Current.MainWindow.DragMove();
+                });
+            }
+        }
+        public RelayCommand ShutdownWindowCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    Application.Current.Shutdown();
+                });
+            }
         }
     }
 }
