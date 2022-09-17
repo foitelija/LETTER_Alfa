@@ -44,7 +44,7 @@
                        FontFamily="Fonts/#Dosis"
                        FontWeight="Medium"
                        Grid.ColumnSpan="2"/>
-            
+
             <TextBlock Text="Ожидание"
                        Grid.Column="3"
                        Grid.ColumnSpan="2"
@@ -102,8 +102,8 @@
             <TextBox Margin="5,0,5,0"
                      FontSize="12"
                      FontWeight="Medium"
-                     Text=" "
-                     Style="{StaticResource FileUrlTextBox}">
+                     Style="{StaticResource FileUrlTextBox}"
+                     >
             </TextBox>
 
             <TextBlock Text="База на отбор"
@@ -126,8 +126,6 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
 
-                <Button Height="25" Width="25" Command="{Binding OpenCommand}"></Button>
-                
                 <Button Content="Open File"
                     Foreground="White"
                     FontSize="14"

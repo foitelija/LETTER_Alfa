@@ -31,15 +31,6 @@ namespace LETTER_BLL.Controllers
             }
             return false;
         }
-
-        #region ON PROPERTY CHANGED
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
         public bool SaveFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -50,6 +41,16 @@ namespace LETTER_BLL.Controllers
             }
             return false;
         }
+
+
+        #region ON PROPERTY CHANGED
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
         #endregion
     }
 }

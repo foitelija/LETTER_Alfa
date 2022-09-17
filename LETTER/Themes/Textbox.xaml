@@ -19,16 +19,17 @@
                                      BorderThickness="0"
                                      Background="Transparent"
                                      VerticalAlignment="Center"
-                                     Padding="5"
+                                     Padding="3"
                                      Foreground="#CFCFCF"
-                                     x:Name="filterValue"/>
+                                     x:Name="filterValue"
+                                     FontSize="11"/>
 
                             <TextBlock IsHitTestVisible="False"
                                        Text="Поиск базы"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Margin="5,0,0,0"
-                                       FontSize="11"
+                                       FontSize="14"
                                        Foreground="Black"
                                        Grid.Column="1">
 
@@ -70,13 +71,15 @@
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             <TextBox Margin="1"
-                                     Text="{TemplateBinding Text}"
                                      BorderThickness="0"
                                      Background="Transparent"
                                      VerticalAlignment="Center"
                                      Padding="5"
                                      Foreground="#CFCFCF"
                                      x:Name="textBoxValue"/>
+                            <Label DataContext="{Binding Path=DialogFileService, UpdateSourceTrigger=PropertyChanged}"
+                                     Content="{Binding Path=FilePath}"/>
+
                         </Grid>
                     </Border>
                 </ControlTemplate>

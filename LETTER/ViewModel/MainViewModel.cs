@@ -3,6 +3,7 @@ using LETTER_BLL.Controllers;
 using LETTER_BLL.Interfaces;
 using System;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace LETTER.ViewModel
@@ -17,6 +18,25 @@ namespace LETTER.ViewModel
         public MainViewModel(IDialogFile dialogService)
         {
             this.dialogService = dialogService;
+        }
+
+
+        public  IDialogFile DialogFileCommand
+        {
+            get { return dialogService; }
+            set
+            {
+                dialogService = value;
+            }
+        }
+
+        public IDialogFile DialogFileService
+        {
+            get { return this.dialogService; }
+            set
+            {
+                dialogService = value;
+            }
         }
 
         private RelayCommand openCommand;
@@ -41,9 +61,6 @@ namespace LETTER.ViewModel
                   }));
             }
         }
-
-
-
         public RelayCommand MoveWindowCommand
         {
             get
