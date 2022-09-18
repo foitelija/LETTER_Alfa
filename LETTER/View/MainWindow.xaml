@@ -45,7 +45,7 @@
                        FontWeight="Medium"
                        Grid.ColumnSpan="2"/>
 
-            <TextBlock Text="Ожидание"
+            <TextBlock Text="{Binding Path=StartupText,UpdateSourceTrigger=Default, Mode=TwoWay}"
                        Grid.Column="3"
                        Grid.ColumnSpan="2"
                        Foreground="Yellow"

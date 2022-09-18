@@ -101,6 +101,7 @@
     <Compile Include="Controllers\DialogFileController.cs" />
     <Compile Include="Controllers\PathController.cs" />
     <Compile Include="Controllers\RobotController.cs" />
+    <Compile Include="Controllers\WordController.cs" />
     <Compile Include="Interfaces\IDialogFile.cs" />
     <Compile Include="Interfaces\IRkoController.cs" />
     <Compile Include="Interfaces\IRobotController.cs" />

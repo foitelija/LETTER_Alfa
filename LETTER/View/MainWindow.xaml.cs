@@ -1,32 +1,21 @@
-﻿using LETTER.ViewModel;
+﻿using Autofac;
+using Autofac.Core;
+using LETTER.ViewModel;
 using LETTER_BLL.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management.Instrumentation;
-using System.Text;
-using System.Threading.Tasks;
+using LETTER_BLL.Interfaces;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LETTER
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly IContainer container;
         public MainWindow()
         {
+            container = Core.Container.config();
             InitializeComponent();
-            DataContext = new MainViewModel(new DialogFileController(), new RobotController());
+            var wordController = container.Resolve<IWordController>();
+            DataContext = new MainViewModel(new DialogFileController(), new RobotController(wordController));
         }
 
     }

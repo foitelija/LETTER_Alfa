@@ -13,6 +13,7 @@ namespace LETTER.Core
 
             builder.RegisterInstance(LogManager.GetLogger("log")).As<ILogger>();
             builder.RegisterType<RobotController>().As<IRobotController>();
+            builder.RegisterType<WordController>().As<IWordController>();
 
             return builder.Build();
 

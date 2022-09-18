@@ -1,19 +1,22 @@
-﻿using LETTER_BLL.Interfaces;
+﻿using Ganss.Excel;
+using LETTER_BLL.Interfaces;
 using LETTER_DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Ganss.Excel;
-using System.Runtime.InteropServices;
 
 namespace LETTER_BLL.Controllers
 {
     public class RobotController : IRobotController
     {
+        private readonly IWordController _wordController;
         public List<Clients> clients;
 
+        public RobotController(IWordController wordController)
+        {
+            _wordController = wordController;
+        }
 
         public async Task<List<Clients>> RobotStartReadFile(string value)
         {
@@ -31,13 +34,13 @@ namespace LETTER_BLL.Controllers
                     clients = mapper.Fetch<Clients>(sheetName: "Гарантии").Where(cl => cl.Id == value).ToList();
                 }
             });
-
+            await RobotStartWork();
             return clients;
         }
 
-        public Task RobotStartWork()
+        public async Task RobotStartWork()
         {
-            throw new NotImplementedException();
+            await _wordController.SortingClients(clients);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LETTER.Core;
 using LETTER_BLL.Controllers;
 using LETTER_BLL.Interfaces;
+using LETTER_DAL.Models;
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -11,9 +12,18 @@ namespace LETTER.ViewModel
     public class MainViewModel : ObservableObject
     {
 
+        enum WorkStatus
+        {
+            Ожидание,
+            Работаю,
+            Завершил,
+            Ошибка
+        }
+
         /*  Commands    */
         IDialogFile dialogService;
         private readonly IRobotController _robotController;
+        private string StartText = WorkStatus.Ожидание.ToString();
 
         public MainViewModel(IDialogFile dialogService, IRobotController robotController)
         {
@@ -39,6 +49,23 @@ namespace LETTER.ViewModel
             }
         }
 
+        public string StartupText
+        {
+            get
+            {
+                return StartText;
+            }
+            set
+            {
+                if(StartText == value)
+                {
+                    return;
+                }
+                StartText = value;
+                OnPropertyChanged("StartupText");
+            }
+        }
+
         private string clientBase;
         public string ClientBase
         {
@@ -57,7 +84,16 @@ namespace LETTER.ViewModel
             {
                 return startCommad ?? new RelayCommand(obj =>
                 {
-                    _robotController.RobotStartReadFile(clientBase);
+                    try
+                    {
+                        _robotController.RobotStartReadFile(clientBase);
+                        StartupText = WorkStatus.Работаю.ToString();
+                    }
+                    catch
+                    {
+                        StartupText = WorkStatus.Ошибка.ToString();
+                    }
+                    
                 });
             }
         }
@@ -77,9 +113,9 @@ namespace LETTER.ViewModel
                               PathController.SetPath(dialogService.FilePath);
                           }
                       }
-                      catch (Exception ex)
+                      catch
                       {
-                          MessageBox.Show(ex.Message);
+                          StartupText = WorkStatus.Ошибка.ToString();
                       }
                   }));
             }

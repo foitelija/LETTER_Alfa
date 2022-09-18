@@ -10,5 +10,6 @@ namespace LETTER_DAL.Models
     public class ConstFiles
     {
         public static string PathFile = Path.Combine(Environment.CurrentDirectory, @"file\path.txt");
+        public static string ConstClients = Path.Combine(Environment.CurrentDirectory, @"file\const.txt");
     }
 }
