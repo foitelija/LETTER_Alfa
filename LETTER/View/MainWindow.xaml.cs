@@ -17,6 +17,8 @@ namespace LETTER
             InitializeComponent();
             var converter = container.Resolve<IDataConversionController>();
             var logger = container.Resolve<ILogger>();
+            logger.Info(" ");
+            logger.Info("Запуск приложения");
             DataContext = new MainViewModel(new DialogFileController(), new RobotController(converter, logger));
         }
 
