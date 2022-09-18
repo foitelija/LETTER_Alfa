@@ -32,13 +32,11 @@ namespace LETTER_DAL.Models
         
         [FormulaResult]
         [Column(Letter = "M")]
-        [DataFormat(0xf)]
         public string DateStart { get; set; } = string.Empty;
         public string Month { get; set; } = string.Empty;
 
         [FormulaResult]
         [Column(Letter = "N")]
-        [DataFormat(0xf)]
         public string DateEnd { get; set; } = string.Empty;
 
         [FormulaResult]
