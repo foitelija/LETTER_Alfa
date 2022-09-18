@@ -26,7 +26,7 @@ namespace LETTER_DAL.Models
         public string CharReward { get; set; } = string.Empty;
         [Column(11)]
         public string Rate { get; set; } = string.Empty;
-        [FormulaResult]
+
         [Column(12)]
         public string CurrReward { get; set; } = string.Empty;
         

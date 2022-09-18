@@ -34,8 +34,8 @@ namespace LETTER_BLL.Controllers
                     clients = mapper.Fetch<Clients>(sheetName: "Гарантии").Where(cl => cl.Id == value).ToList();
                 }
             });
+            await RobotStartWork();
             return clients;
-            //await RobotStartWork();
         }
 
         public async Task RobotStartWork()
