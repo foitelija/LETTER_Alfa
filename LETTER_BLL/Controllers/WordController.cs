@@ -193,6 +193,7 @@ namespace LETTER_BLL.Controllers
                             additionalRemuneration = $"Указаные суммы будут списаны с Вашего текущего счета в ЗАО Альфа-Банк не позднее {dateCloseDocument.Replace("/", ".")}";
                             purposeOfPayment = "В случае отсутствия денежных средств для списания суммы до указанной даты включительно, взимается пеня за каждый день просрочки в размере, предусмотренном Генеральным договором";
                             Advising = "Просим обеспечить наличие денежных сресдтв на счете";
+                            Compensation = "";
                             break;
                         case 2:
                             if (!wordClientsDTO[i].CharReward.ToLower().Contains("возмещение комиссии за авизование изменений"))
