@@ -3,6 +3,7 @@ using Autofac.Core;
 using LETTER.ViewModel;
 using LETTER_BLL.Controllers;
 using LETTER_BLL.Interfaces;
+using NLog;
 using System.Windows;
 
 namespace LETTER
@@ -14,8 +15,9 @@ namespace LETTER
         {
             container = Core.Container.config();
             InitializeComponent();
-            var wordController = container.Resolve<IWordController>();
-            DataContext = new MainViewModel(new DialogFileController(), new RobotController(wordController));
+            var converter = container.Resolve<IDataConversionController>();
+            var logger = container.Resolve<ILogger>();
+            DataContext = new MainViewModel(new DialogFileController(), new RobotController(converter, logger));
         }
 
     }

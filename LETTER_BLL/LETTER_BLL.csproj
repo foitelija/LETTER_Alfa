@@ -102,11 +102,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DataConversionController.cs" />
     <Compile Include="Controllers\DialogFileController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\PathController.cs" />
+    <Compile Include="Controllers\RkoController.cs" />
     <Compile Include="Controllers\RobotController.cs" />
     <Compile Include="Controllers\WordController.cs" />
+    <Compile Include="Interfaces\IDataConversionController.cs" />
     <Compile Include="Interfaces\IDialogFile.cs" />
+    <Compile Include="Interfaces\IMailController.cs" />
     <Compile Include="Interfaces\IRkoController.cs" />
     <Compile Include="Interfaces\IRobotController.cs" />
     <Compile Include="Interfaces\IWordController.cs" />

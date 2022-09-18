@@ -1,5 +1,6 @@
 ﻿using LETTER_BLL.Interfaces;
 using LETTER_DAL.Models;
+using NLog;
 using NPOI.POIFS.Crypt.Dsig;
 using System;
 using System.Collections.Generic;
@@ -35,12 +36,12 @@ namespace LETTER_BLL.Controllers
         #endregion
 
 
-
         #region ARRAY, CLASSIES AND LISTS
         string[] constLines = File.ReadLines(ConstFiles.ConstClients).ToArray();
         public List<Clients> wordClients; // основной лист.
         public List<Clients> wordClientsDTO; // передаёт этих клиентов.
         Clients _clients = new Clients(); // для вызова методов класса клиенты.
+
         #endregion
 
         public async Task SortingClients(List<Clients> clients)

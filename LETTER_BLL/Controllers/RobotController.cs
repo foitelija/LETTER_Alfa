@@ -1,6 +1,7 @@
 ﻿using Ganss.Excel;
 using LETTER_BLL.Interfaces;
 using LETTER_DAL.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,14 @@ namespace LETTER_BLL.Controllers
 {
     public class RobotController : IRobotController
     {
-        private readonly IWordController _wordController;
+        private readonly IDataConversionController _dataConversion;
+        private readonly ILogger _logger;
         public List<Clients> clients;
 
-        public RobotController(IWordController wordController)
+        public RobotController(IDataConversionController dataConversion, ILogger logger)
         {
-            _wordController = wordController;
+            _dataConversion = dataConversion;
+            _logger = logger;
         }
 
         public async Task<List<Clients>> RobotStartReadFile(string value)
@@ -40,7 +43,7 @@ namespace LETTER_BLL.Controllers
 
         public async Task RobotStartWork()
         {
-            await _wordController.SortingClients(clients);
+            await _dataConversion.StartupConversion(clients);
         }
     }
 }

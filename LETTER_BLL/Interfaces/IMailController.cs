@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LETTER_BLL.Interfaces
 {
-    public interface IRkoController
+    public interface IMailController
     {
     }
 }
