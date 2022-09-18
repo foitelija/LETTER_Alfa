@@ -20,18 +20,25 @@ namespace LETTER_DAL.Models
         public string ContractNumber { get; set; } = string.Empty;
         [Column(8)]
         public string Currency { get; set; } = string.Empty;
+        [Column(9)]
+        public decimal AmountToPay { get; set; }
         [Column(10)]
         public string CharReward { get; set; } = string.Empty;
+        [Column(11)]
+        public string Rate { get; set; } = string.Empty;
         [FormulaResult]
         [Column(12)]
         public string CurrReward { get; set; } = string.Empty;
+        
         [FormulaResult]
         [Column(Letter = "M")]
+        [DataFormat(0xf)]
         public string DateStart { get; set; } = string.Empty;
         public string Month { get; set; } = string.Empty;
 
         [FormulaResult]
         [Column(Letter = "N")]
+        [DataFormat(0xf)]
         public string DateEnd { get; set; } = string.Empty;
 
         [FormulaResult]

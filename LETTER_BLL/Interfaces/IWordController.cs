@@ -10,7 +10,7 @@ namespace LETTER_BLL.Interfaces
     public interface IWordController
     {
         Task StartupWord(int choose);
-        Task CheckTheSame();
+        Task CheckAutodebet();
         Task SortingClients(List<Clients> clients);
     }
 }
