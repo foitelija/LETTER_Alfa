@@ -13,11 +13,12 @@ namespace LETTER.ViewModel
 
         /*  Commands    */
         IDialogFile dialogService;
+        private readonly IRobotController _robotController;
 
-
-        public MainViewModel(IDialogFile dialogService)
+        public MainViewModel(IDialogFile dialogService, IRobotController robotController)
         {
             this.dialogService = dialogService;
+            _robotController = robotController;
         }
 
 
@@ -29,13 +30,35 @@ namespace LETTER.ViewModel
                 dialogService = value;
             }
         }
-
         public IDialogFile DialogFileService
         {
             get { return this.dialogService; }
             set
             {
                 dialogService = value;
+            }
+        }
+
+        private string clientBase;
+        public string ClientBase
+        {
+            get { return clientBase; }
+            set
+            {
+                clientBase = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private RelayCommand startCommad;
+        public RelayCommand StartCommad
+        {
+            get
+            {
+                return startCommad ?? new RelayCommand(obj =>
+                {
+                    _robotController.RobotStartReadFile(clientBase);
+                });
             }
         }
 

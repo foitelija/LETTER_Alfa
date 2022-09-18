@@ -15,7 +15,7 @@
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             <TextBox Margin="1"
-                                     Text="{TemplateBinding Text}"
+                                     Text="{Binding ClientBase}"
                                      BorderThickness="0"
                                      Background="Transparent"
                                      VerticalAlignment="Center"

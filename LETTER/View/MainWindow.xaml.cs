@@ -26,7 +26,7 @@ namespace LETTER
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(new DialogFileController());
+            DataContext = new MainViewModel(new DialogFileController(), new RobotController());
         }
 
     }

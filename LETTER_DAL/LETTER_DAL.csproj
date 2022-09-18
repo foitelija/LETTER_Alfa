@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Models\Clients.cs" />
     <Compile Include="Models\ConstFiles.cs" />
+    <Compile Include="Models\StatusEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
