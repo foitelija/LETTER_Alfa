@@ -34,15 +34,23 @@ namespace LETTER_BLL.Controllers
         decimal diffEUR = 0; string textEUR = string.Empty;
         decimal diffRUB = 0; string textRUB = string.Empty;
         #endregion
-
-
         #region ARRAY, CLASSIES AND LISTS
         string[] constLines = File.ReadLines(ConstFiles.ConstClients).ToArray();
         public List<Clients> wordClients; // основной лист.
         public List<Clients> wordClientsDTO; // передаёт этих клиентов.
         Clients _clients = new Clients(); // для вызова методов класса клиенты.
+        private readonly ILogger _logger;
+        private readonly IRkoController _rkoController;
+        private readonly IMailController _mailController;
 
         #endregion
+
+        public WordController(ILogger logger, IRkoController rkoController, IMailController mailController)
+        {
+            _logger = logger;
+            _rkoController = rkoController;
+            _mailController = mailController;
+        }
 
         public async Task SortingClients(List<Clients> clients)
         {

@@ -15,6 +15,8 @@ namespace LETTER.Core
             builder.RegisterType<RobotController>().As<IRobotController>();
             builder.RegisterType<DataConversionController>().As<IDataConversionController>();
             builder.RegisterType<WordController>().As<IWordController>();
+            builder.RegisterType<RkoController>().As<IRkoController>();
+            builder.RegisterType<MailController>().As<IMailController>();
 
             return builder.Build();
 
