@@ -17,7 +17,6 @@ namespace LETTER_BLL.Controllers
         #region FIELD
         string clientDocument = string.Empty;
         string generalContractDocument = string.Empty;
-        string monthDocument = string.Empty;
         string dateCloseDocument = string.Empty;
         string dateOpenDocument = string.Empty;
         string amountDocument = string.Empty;
@@ -33,6 +32,8 @@ namespace LETTER_BLL.Controllers
         decimal diffKZT = 0; string textKZT = string.Empty;
         decimal diffEUR = 0; string textEUR = string.Empty;
         decimal diffRUB = 0; string textRUB = string.Empty;
+
+        DateTime now = DateTime.Now;
         #endregion
         #region ARRAY, CLASSIES AND LISTS
         string[] constLines = File.ReadLines(ConstFiles.ConstClients).ToArray();
@@ -124,13 +125,12 @@ namespace LETTER_BLL.Controllers
                 {
                     clientDocument = items.ClientName;
                     generalContractDocument = items.GeneralContract;
-                    monthDocument = items.Month;
-                    dateCloseDocument = items.DateEnd;
+                    dateCloseDocument = (DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) + "." + items.DateEnd.Month.ToString("00") +"." +items.DateEnd.Year).ToString();
                 }
 
                 ReplaceWordStub("{КЛИЕНТ}", clientDocument, ref wordDocument);
                 ReplaceWordStub("{ГЕНДОГ}", generalContractDocument, ref wordDocument);
-                ReplaceWordStub("{МЕСЯЦ}", monthDocument, ref wordDocument);
+                ReplaceWordStub("{МЕСЯЦ}", now.ToString("MMMM"), ref wordDocument);
                 ReplaceWordStub("{ГОД}", DateTime.Now.Year.ToString(), ref wordDocument);
 
                 #region ИТОГОВАЯ СУММА К ОПЛАТЕ ПОСЛЕ ТАБЛИЦЫ И ТАБЛИЦА
@@ -144,7 +144,7 @@ namespace LETTER_BLL.Controllers
                     if (wordClientsDTO[i].CharReward.ToLower().Contains("дополнительное вознаграждение"))
                     {
                         amountDocument = wordClientsDTO[i].Currency + " " + wordClientsDTO[i].AmountToPay.ToString("0.00");
-                        table.Rows[i + 2].Cells[2].Range.Text = wordClientsDTO[i].CharReward + $" за период с {wordClientsDTO[i].DateStart.Replace("/", ".")} по {wordClientsDTO[i].DateEnd.Replace("/", ".")} по ставке {wordClientsDTO[i].Rate} годовых по банковской гарантии на сумму {amountDocument}";
+                        table.Rows[i + 2].Cells[2].Range.Text = wordClientsDTO[i].CharReward + $" за период с {wordClientsDTO[i].DateStart.Day.ToString("00") + "." + wordClientsDTO[i].DateStart.Month.ToString("00") + "." + wordClientsDTO[i].DateStart.Year} по {wordClientsDTO[i].DateEnd.Day.ToString("00") + "." + wordClientsDTO[i].DateEnd.Month.ToString("00") + "." + wordClientsDTO[i].DateEnd.Year} по ставке {wordClientsDTO[i].Rate} годовых по банковской гарантии на сумму {amountDocument}";
                     }
                     else
                     {
@@ -190,7 +190,7 @@ namespace LETTER_BLL.Controllers
                     switch (choose)
                     {
                         case 1:
-                            additionalRemuneration = $"Указаные суммы будут списаны с Вашего текущего счета в ЗАО Альфа-Банк не позднее {dateCloseDocument.Replace("/", ".")}";
+                            additionalRemuneration = $"Указаные суммы будут списаны с Вашего текущего счета в ЗАО Альфа-Банк не позднее {dateCloseDocument}";
                             purposeOfPayment = "В случае отсутствия денежных средств для списания суммы до указанной даты включительно, взимается пеня за каждый день просрочки в размере, предусмотренном Генеральным договором";
                             Advising = "Просим обеспечить наличие денежных сресдтв на счете";
                             Compensation = "";
@@ -223,7 +223,7 @@ namespace LETTER_BLL.Controllers
                                 }
                                 totalAmountToPayDocumentNotAdvising = textBYN + textUSD + textEUR + textRUB + textKZT;
                                 additionalRemuneration = $"Оплата дополнительного вознаграждения в сумме {totalAmountToPayDocumentNotAdvising} должны быть перечисленна вами в белорусских рублях на счет BY39ALFA8132 в ЗАО Альфа-Банк, код ALFABY2X";
-                                purposeOfPayment = $"Назначение платежа {clientDocument} оплата дополнительного вознаграждения за {monthDocument.ToLower()} {DateTime.Now.Year}г. без НДС";
+                                purposeOfPayment = $"Назначение платежа {clientDocument} оплата дополнительного вознаграждения за {now.ToString("MMMM").ToLower()} {DateTime.Now.Year}г. без НДС";
                             }
                             break;
                     }
@@ -265,7 +265,7 @@ namespace LETTER_BLL.Controllers
                                 }
                                 totalAmountToPayDocumentAdvising = textBYN + textUSD + textEUR + textRUB + textKZT;
                                 Advising = $"А так же сумма {totalAmountToPayDocumentAdvising} должна быть перечисленна вами в белорусских рублях на счет BY39ALFA8132 в ЗАО Альфа-Банк, код ALFABY2X";
-                                Compensation = $"Назначение платежа {clientDocument}.Возмещенеие комиссий за авизование изменений по гарантиям за {monthDocument.ToLower()} {DateTime.Now.Year}г. без НДС";
+                                Compensation = $"Назначение платежа {clientDocument}.Возмещенеие комиссий за авизование изменений по гарантиям за {now.ToString("MMMM").ToLower()} {DateTime.Now.Year}г. без НДС";
                             }
                             break;
                     }
@@ -277,7 +277,7 @@ namespace LETTER_BLL.Controllers
                 ReplaceWordStub("{НАЗНАЧЕНИЕ}", purposeOfPayment, ref wordDocument);
                 ReplaceWordStub("{АВИЗОВАНИЕ}", Advising, ref wordDocument);
                 ReplaceWordStub("{ВОЗМЕЩЕНИЕ}", Compensation, ref wordDocument);
-                ReplaceWordStub("{ДАТАУПЛАТЫ}", _clients.TotalNumberOfDaysInMonth(DateTime.Now.Month) + dateCloseDocument.Remove(0,2).Replace("/","."),ref wordDocument);
+                ReplaceWordStub("{ДАТАУПЛАТЫ}", dateCloseDocument, ref wordDocument); //+ dateCloseDocument.Remove(0,2).Replace("/",".")
 
                 wordapp.ActiveDocument.SaveAs2();
                 wordapp.Documents.Close();

@@ -15,11 +15,11 @@ namespace LETTER
         {
             container = Core.Container.config();
             InitializeComponent();
-            var converter = container.Resolve<IDataConversionController>();
+            var converter = container.Resolve<IWordController>();
             var logger = container.Resolve<ILogger>();
             logger.Info(" ");
             logger.Info("Запуск приложения");
-            DataContext = new MainViewModel(new DialogFileController(), new RobotController(converter, logger));
+            DataContext = new MainViewModel(new DialogFileController(), new RobotController(logger, converter));
         }
 
     }

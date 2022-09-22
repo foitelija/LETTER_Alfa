@@ -13,12 +13,13 @@ namespace LETTER_BLL.Controllers
     {
         private readonly IDataConversionController _dataConversion;
         private readonly ILogger _logger;
+        private readonly IWordController _wordController;
         public List<Clients> clients;
 
-        public RobotController(IDataConversionController dataConversion, ILogger logger)
+        public RobotController(ILogger logger, IWordController wordController)
         {
-            _dataConversion = dataConversion;
             _logger = logger;
+            _wordController = wordController;
         }
 
         public async Task<List<Clients>> RobotStartReadFile(string value)
@@ -43,7 +44,8 @@ namespace LETTER_BLL.Controllers
 
         public async Task RobotStartWork()
         {
-            await _dataConversion.StartupConversion(clients);
+            await _wordController.SortingClients(clients);
+            //await _dataConversion.StartupConversion(clients);
         }
     }
 }
